@@ -26,15 +26,15 @@ func ToJSON(obj map[string]interface{}) string {
 			switch v.(type) {
 			case int:
 				{
-					jsonStr = jsonStr + `"` + k + `":` + strconv.Itoa(v.(int)) + `,`
+					jsonStr = jsonStr + `"` + k + `":` + strconv.Itoa(v.(int))
 				}
 			case string:
 				{
-					jsonStr = jsonStr + `"` + k + `":"` + v.(string) + `",`
+					jsonStr = jsonStr + `"` + k + `":"` + v.(string)
 				}
 			case map[string]interface{}:
 				{
-					jsonStr = jsonStr + `"` + k + `":` + ToJSON(v.(map[string]interface{})) + `,`
+					jsonStr = jsonStr + `"` + k + `":` + ToJSON(v.(map[string]interface{}))
 				}
 			}
 		}
