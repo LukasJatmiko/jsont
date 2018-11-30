@@ -19,7 +19,7 @@ func ToJSON(obj map[string]interface{}) string {
 				}
 			case map[string]interface{}:
 				{
-					jsonStr = jsonStr + `,"` + k + `":{` + ToJSON(v.(map[string]interface{})) + `}`
+					jsonStr = jsonStr + `,"` + k + `":` + ToJSON(v.(map[string]interface{}))
 				}
 			}
 		} else {
@@ -34,7 +34,7 @@ func ToJSON(obj map[string]interface{}) string {
 				}
 			case map[string]interface{}:
 				{
-					jsonStr = jsonStr + `"` + k + `":{` + ToJSON(v.(map[string]interface{})) + `},`
+					jsonStr = jsonStr + `"` + k + `":` + ToJSON(v.(map[string]interface{})) + `,`
 				}
 			}
 		}
