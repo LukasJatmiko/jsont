@@ -20,6 +20,6 @@ func TestToJSON(t *testing.T) {
 
 	rslt := ToJSON(a)
 	if rslt != `{"b":[{"d":1},{"f":"Success"},{"h":true}]}` {
-		t.Error("JSON Output is not match")
+		t.Errorf("JSON Output is not match (%v)", rslt)
 	}
 }
