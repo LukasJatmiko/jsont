@@ -8,64 +8,39 @@ func ToJSON(obj map[string]interface{}) string {
 	ctr := 1
 	for k, v := range obj {
 		if ctr != 1 {
-			switch v.(type) {
-			case int:
-				{
-					jsonStr = jsonStr + `,"` + k + `":` + strconv.Itoa(v.(int))
-				}
-			case string:
-				{
-					jsonStr = jsonStr + `,"` + k + `":"` + v.(string) + `"`
-				}
-			case map[string]interface{}:
-				{
-					jsonStr = jsonStr + `,"` + k + `":` + ToJSON(v.(map[string]interface{}))
-				}
-			case []map[string]interface{}:
-				{
-					sv := ""
-					for _, mv := range v.([]map[string]interface{}) {
-						sv += `,` + ToJSON(mv)
-					}
-					if len(sv) > 0 {
-						sv = sv[1:]
-					}
-					jsonStr = jsonStr + `,"` + k + `":[` + sv + `]`
-				}
-			case nil:
-				{
-					jsonStr = jsonStr + `,"` + k + `":""`
-				}
+			jsonStr = jsonStr + `,`
+		}
+		switch v.(type) {
+		case int:
+			{
+				jsonStr = jsonStr + `"` + k + `":` + strconv.Itoa(v.(int))
 			}
-		} else {
-			switch v.(type) {
-			case int:
-				{
-					jsonStr = jsonStr + `"` + k + `":` + strconv.Itoa(v.(int))
+		case bool:
+			{
+				jsonStr = jsonStr + `"` + k + `":` + strconv.FormatBool(v.(bool))
+			}
+		case string:
+			{
+				jsonStr = jsonStr + `"` + k + `":"` + v.(string) + `"`
+			}
+		case map[string]interface{}:
+			{
+				jsonStr = jsonStr + `"` + k + `":` + ToJSON(v.(map[string]interface{}))
+			}
+		case []map[string]interface{}:
+			{
+				sv := ""
+				for _, mv := range v.([]map[string]interface{}) {
+					sv += `,` + ToJSON(mv)
 				}
-			case string:
-				{
-					jsonStr = jsonStr + `"` + k + `":"` + v.(string) + `"`
+				if len(sv) > 0 {
+					sv = sv[1:]
 				}
-			case map[string]interface{}:
-				{
-					jsonStr = jsonStr + `"` + k + `":` + ToJSON(v.(map[string]interface{}))
-				}
-			case []map[string]interface{}:
-				{
-					sv := ""
-					for _, mv := range v.([]map[string]interface{}) {
-						sv += `,` + ToJSON(mv)
-					}
-					if len(sv) > 0 {
-						sv = sv[1:]
-					}
-					jsonStr = jsonStr + `"` + k + `":[` + sv + `]`
-				}
-			case nil:
-				{
-					jsonStr = jsonStr + `"` + k + `":""`
-				}
+				jsonStr = jsonStr + `"` + k + `":[` + sv + `]`
+			}
+		case nil:
+			{
+				jsonStr = jsonStr + `"` + k + `":""`
 			}
 		}
 		ctr++
