@@ -19,6 +19,14 @@ func ToJSON(obj interface{}) string {
 					{
 						jsonStr = jsonStr + `"` + k + `":` + strconv.Itoa(v.(int))
 					}
+				case int64:
+					{
+						jsonStr = jsonStr + `"` + k + `":` + strconv.FormatInt(v.(int64), 10)
+					}
+				case float64:
+					{
+						jsonStr = jsonStr + `"` + k + `":` + strconv.FormatFloat(v.(float64), 'f', 2, 64)
+					}
 				case bool:
 					{
 						jsonStr = jsonStr + `"` + k + `":` + strconv.FormatBool(v.(bool))
